@@ -22,54 +22,52 @@ module.exports = {
         type: "list",
         name: "type",
         message: "Select type",
-        choices: {
-          "types": [
-            {
-              name: "feat: A new feature",
-              value: "feat"
-            },
-            {
-              name: "fix: A bug fix",
-              value: "fix"
-            },
-            {
-              name: "docs: Documentation only changes",
-              value: "docs"
-            },
-            {
-              name: "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
-              value: "style"
-            },
-            {
-              name: "refactor: A code change that neither fixes a bug nor adds a feature",
-              value: "refactor"
-            },
-            {
-              name: "perf: A code change that improves performance",
-              value: "perf"
-            },
-            {
-              name: "test: Adding missing tests or correcting existing tests",
-              value: "test"
-            },
-            {
-              name: "build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
-              value: "build"
-            },
-            {
-              name: "ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
-              value: "ci"
-            },
-            {
-              name: "chore: Other changes that don't modify src or test files",
-              value: "chore"
-            },
-            {
-              name: "revert: Reverts a previous commit",
-              value: "revert"
-            }
-          ]
-        }
+        choices: [
+          {
+            name: "feat: A new feature",
+            value: "feat"
+          },
+          {
+            name: "fix: A bug fix",
+            value: "fix"
+          },
+          {
+            name: "docs: Documentation only changes",
+            value: "docs"
+          },
+          {
+            name: "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
+            value: "style"
+          },
+          {
+            name: "refactor: A code change that neither fixes a bug nor adds a feature",
+            value: "refactor"
+          },
+          {
+            name: "perf: A code change that improves performance",
+            value: "perf"
+          },
+          {
+            name: "test: Adding missing tests or correcting existing tests",
+            value: "test"
+          },
+          {
+            name: "build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+            value: "build"
+          },
+          {
+            name: "ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
+            value: "ci"
+          },
+          {
+            name: "chore: Other changes that don't modify src or test files",
+            value: "chore"
+          },
+          {
+            name: "revert: Reverts a previous commit",
+            value: "revert"
+          }
+        ]
       },
       {
         type: 'input',
@@ -99,7 +97,7 @@ module.exports = {
         name: 'breakingBody',
         default: '-',
         message:
-          'A BREAKING CHANGEs commit requires a body. Please enter a longer description of the commit itself:\n',
+          'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n',
         when: answers => answers.isBreaking && !answers.body
       },
       {
