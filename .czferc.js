@@ -14,63 +14,62 @@
  */
 
 /** @type import('cz-format-extension').Config<Answers> */
+
 module.exports = {
-  questions({inquirer, gitInfo}) {
+  questions({inquirer}) {
     return [
       {
         type: "list",
         name: "type",
         message: "Select type",
-        choices: [
-          {
-            name: "feat: A new feature",
-            value: "feat"
-          },
-          {
-            name: "improve: A business change that wasn't a bug nor a new feature",
-            value: "improve"
-          },
-          {
-            name: "fix: A bug fix",
-            value: "fix"
-          },
-          {
-            name: "docs: Documentation only changes",
-            value: "docs"
-          },
-          {
-            name: "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
-            value: "style"
-          },
-          {
-            name: "refactor: A code change that neither fixes a bug nor adds a feature",
-            value: "refactor"
-          },
-          {
-            name: "perf: A code change that improves performance",
-            value: "perf"
-          },
-          {
-            name: "test: Adding missing tests or correcting existing tests",
-            value: "test"
-          },
-          {
-            name: "build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
-            value: "build"
-          },
-          {
-            name: "ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
-            value: "ci"
-          },
-          {
-            name: "chore: Other changes that don't modify src or test files",
-            value: "chore"
-          },
-          {
-            name: "revert: Reverts a previous commit",
-            value: "revert"
-          }
-        ]
+        choices: {
+          "types": [
+            {
+              name: "feat: A new feature",
+              value: "feat"
+            },
+            {
+              name: "fix: A bug fix",
+              value: "fix"
+            },
+            {
+              name: "docs: Documentation only changes",
+              value: "docs"
+            },
+            {
+              name: "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
+              value: "style"
+            },
+            {
+              name: "refactor: A code change that neither fixes a bug nor adds a feature",
+              value: "refactor"
+            },
+            {
+              name: "perf: A code change that improves performance",
+              value: "perf"
+            },
+            {
+              name: "test: Adding missing tests or correcting existing tests",
+              value: "test"
+            },
+            {
+              name: "build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+              value: "build"
+            },
+            {
+              name: "ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
+              value: "ci"
+            },
+            {
+              name: "chore: Other changes that don't modify src or test files",
+              value: "chore"
+            },
+            {
+              name: "revert: Reverts a previous commit",
+              value: "revert"
+            }
+          ]
+        }
       },
       {
         type: 'input',
@@ -110,20 +109,10 @@ module.exports = {
         when: answers => answers.isBreaking
       },
       {
-        type: 'input',
-        name: 'issues',
-        message: 'Add issue references (e.g. "SITE-1982, A&C-986".):\n',
-        default: undefined,
-        validate: (issues) => {
-          const issueQty = issues.length;
-          const issueRegex = /^([A-Z\d]{2,})-([\d]+(,\s*[A-Z\d]{2,}-[\d]+)*)$/g;
-          let response = true;
-
-          if (!issueRegex.test(issues)) response = `Validation failed.\nCheck if the issue pattern follow these examples: SITE-283 or AAC-482\nRemember that if you're using multiples issues you should use comma separated values as "SITE-18373, AAC-383"`;
-          if (!issueQty) response = 'issues is required';
-
-          return response;
-        }
+        type: 'confirm',
+        name: 'isIssueAffected',
+        message: 'Does this change affect any open issues?',
+        default: false
       },
       {
         type: 'input',
@@ -131,17 +120,26 @@ module.exports = {
         default: '-',
         message:
           'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n',
-        when: answers => !answers.body && !answers.breakingBody
+        when: answers => answers.isIssueAffected && !answers.body && !answers.breakingBody
       },
+      {
+        type: 'input',
+        name: 'issues',
+        message: 'Add issue references (e.g. "fix #123", "re #123".):\n',
+        when: answers => answers.isIssueAffected,
+        default: undefined,
+        validate: (issues) => issues.length === 0 ? 'issues is required' : true
+      }
     ]
+
   },
-  commitMessage({answers, gitInfo}) {
-    const issues = answers.issues ? answers.issues : '';
+  commitMessage({answers}) {
     const scope = answers.scope ? `(${answers.scope})` : '';
-    const head = `${answers.type}${scope}: ${issues} ${answers.subject}`;
+    const head = `${answers.type}${scope}: ${answers.subject}`;
     const body = answers.body ? answers.body : '';
     const breaking = answers.breaking ? `BREAKING CHANGE: ${answers.breaking}` : '';
+    const issues = answers.issues ? answers.issues : '';
 
-    return [head, body, breaking].join('\n\n').trim();
+    return [head, body, breaking, issues].join('\n\n').trim()
   }
 }
