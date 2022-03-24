@@ -1,0 +1,75 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "plugins": [
+    "prettier",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+
+    "import-helpers/order-imports": [
+      "error",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          "/^react(?!.*redux).*/",
+          "/^next/",
+          "/redux/",
+          "module",
+          [
+              "/^\\~interfaces/",
+              "/^\\~store/",
+              "/^\\~snippets/",
+              "/^\\~hooks/",
+              "/^\\~services/",
+              "/^\\~transformers/",
+              "/^\\~constants/",
+              "/^\\~utils/",
+              "/^\\~enums/",
+              "/^\\~types/"
+          ],
+          "/^(\\.|\\.\\.)(\\/[a-z]{1}\\w+)*$/",
+          "/^\\~components/",
+          "/^(\\.|\\.\\.)(\\/[\\w]+)*((\\/[A-Z]{1}\\w+)){1}$/",
+          "/\\~styles/",
+          "/^(\\.|\\.\\.).*(\\.scss)$/",
+          "/^(\\.|\\.\\.).*(\\.(svg|png|jpg|jpeg))$/"
+        ],
+        "alphabetize": { "order": "asc", "ignoreCase": true }
+      }
+    ],
+
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "prefix": ["I"],
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": "enum",
+        "prefix": ["E"],
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": "typeAlias",
+        "prefix": ["T"],
+        "format": ["PascalCase"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    }
+  ]
+}
