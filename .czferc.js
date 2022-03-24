@@ -99,7 +99,7 @@ module.exports = {
         name: 'breakingBody',
         default: '-',
         message:
-          'A BREAKING CHANGE commit requires a body. Please enter a longer description of the commit itself:\n',
+          'A BREAKING CHANGEs commit requires a body. Please enter a longer description of the commit itself:\n',
         when: answers => answers.isBreaking && !answers.body
       },
       {
