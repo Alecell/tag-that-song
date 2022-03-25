@@ -1,0 +1,7 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "customSyntax": "@stylelint/postcss-css-in-js",
+  "rules": {
+    "string-quotes": "double"
+  }
+}
