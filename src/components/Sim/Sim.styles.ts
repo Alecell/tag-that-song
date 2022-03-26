@@ -1,18 +1,16 @@
 import { css } from '@emotion/react';
 
 export const container = (color: string) => css`
-  background-color: #000;
+  background-color: pink;
   padding: 32px;
   border-radius: 4px;
-  font-size: 24tz;
-  batata: sim;
-  content: 'sssm';
+  font-size: 24px;
 
-  .umaCOi0-sim {
+  .sim {
     color: red;
   }
 
-  &:holver {
+  &:hover {
     color: ${color};
   }
 `;

@@ -2,8 +2,7 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
     "prettier",
@@ -66,10 +65,17 @@
   },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"],
-      "parserOptions": {
-        "project": ["./tsconfig.json"]
+        "files": ["*.ts", "*.tsx"],
+        "parserOptions": {
+            "project": ["./tsconfig.json"]
+        }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+          "no-console": "off",
+          "@typescript-eslint/no-var-requires": "off"
       }
-    }
+  },
   ]
 }
