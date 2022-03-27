@@ -1,9 +1,12 @@
 {
-  "testFiles": "cypress/integration/*.spec.js",
+  "videosFolder": "cypress/videos/integration",
+  "screenshotsFolder": "cypress/screenshots/integration",
   "component": {
     "componentFolder": "src",
-    "testFiles": "**/*.spec.tsx",
+    "testFiles": ["**/*.spec.tsx", "**/*.spec.ts"],
     "viewportHeight": 500,
-    "viewportWidth": 700
+    "viewportWidth": 700,
+    "videosFolder": "cypress/videos/component",
+    "screenshotsFolder": "cypress/screenshots/component"
   }
 }
