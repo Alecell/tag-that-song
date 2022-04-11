@@ -12,6 +12,8 @@
   "rules": {
     "prettier/prettier": "error",
 
+    "no-console": "error",
+
     "import-helpers/order-imports": [
       "error",
       {
@@ -61,21 +63,29 @@
         "prefix": ["T"],
         "format": ["PascalCase"]
       }
-    ]
+    ],
+
+    "@typescript-eslint/no-non-null-assertion": "off"
   },
   "overrides": [
     {
-        "files": ["*.ts", "*.tsx"],
-        "parserOptions": {
-            "project": ["./tsconfig.json"]
-        }
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["./src/types/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
     },
     {
       "files": ["*.js"],
       "rules": {
-          "no-console": "off",
-          "@typescript-eslint/no-var-requires": "off"
+        "no-console": "off",
+        "@typescript-eslint/no-var-requires": "off"
       }
-  },
+    },
   ]
 }

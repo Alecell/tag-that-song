@@ -5,11 +5,9 @@ export const container = (color: string) => css`
   padding: 32px;
   border-radius: 4px;
   font-size: 24px;
-
   .sim {
     color: red;
   }
-
   &:hover {
     color: ${color};
   }
